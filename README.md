@@ -33,11 +33,13 @@ The launcher for **DIE Reborn**, a community server for *Dead Island: Epidemic*.
 
 3. **Press Install patch.** The launcher downloads the patch, checks it, and unpacks it into the game folder. This takes a few seconds. The game must be closed while it does this.
 
-4. **Check the server card.** A green dot and **Online** means the server is up. The three numbers are players online, players in a match, and matches in progress.
+4. **Pick a server.** The **Servers** list shows every server that is up right now: its name, where it is, your ping to it, and how many people are online and how many matches are running. A green dot means it is up. Click the one you want; the launcher remembers your choice.
 
-5. **Press Play.** Steam starts the game. Log-in is automatic: your Steam account is your identity, so there is nothing to register and no password.
+   Ping is coloured: green under 80 ms, yellow under 160 ms, red above. Pick the lowest you can.
 
-After the first time, it is just: open the launcher, press **Play**. When a new patch is out the button says **Update patch** instead; press it once, then Play.
+5. **Press Play.** Steam starts the game and it connects to the server you picked. Log-in is automatic: your Steam account is your identity, so there is nothing to register and no password.
+
+After the first time, it is just: open the launcher, press **Play**. To switch servers, click a different one in the list before pressing Play. When a new patch is out the button says **Update patch** instead; press it once, then Play.
 
 ### What the big button means
 
@@ -54,9 +56,9 @@ The links along the bottom: *Check for updates*, *Change game folder*, *Open gam
 
 ---
 
-## Connecting to a different server
+## Connecting to a server that is not in the list
 
-By default the launcher connects to the DIE Reborn server. To play on someone else's server — or your own — tell it the address. This needs launcher **1.1.0 or later**.
+Servers appear in the list on their own; you normally do not need this. It is for servers whose owner chose not to list them, and for your own server on your home network (private addresses are never listed, because nobody else could reach them). This needs launcher **1.1.0 or later**.
 
 1. Next to `DIE-Launcher.exe`, create a text file named **`launcher.json`**.
 2. Put the server's address in it. The server's host will tell you what it is:
@@ -64,9 +66,9 @@ By default the launcher connects to the DIE Reborn server. To play on someone el
    { "serverHost": "203.0.113.10" }
    ```
    A domain name works too: `{ "serverHost": "play.example.org" }`.
-3. Start the launcher. The server card now shows that address. Press **Install patch** if you have not yet, then **Play**.
+3. Start the launcher. That server is added to the list and selected. Press **Install patch** if you have not yet, then **Play**.
 
-Each time you press Play, the launcher points the game at that server. To go back to the default server, delete `launcher.json`, press **Uninstall patch**, then **Install patch** again.
+To go back, delete `launcher.json` and pick another server in the list.
 
 Make sure the file is really named `launcher.json` and not `launcher.json.txt` — in File Explorer, turn on *View → File name extensions* to check.
 
@@ -74,8 +76,9 @@ Make sure the file is really named `launcher.json` and not `launcher.json.txt` �
 
 | Setting | Meaning | Default |
 |---|---|---|
-| `serverHost` | Address of the server (IP or domain name) | the DIE Reborn server |
+| `serverHost` | A server to add to the list and select (IP or domain name) | none |
 | `statusPort` | Port of the server's status endpoint | `8555` |
+| `registry` | Where the server list comes from | the DIE Reborn server |
 | `repo` | GitHub repository the patch is downloaded from, as `owner/name` | `spardanviro/DIElauncher` |
 
 Hosting a server is covered step by step at **<https://github.com/spardanviro/DIE-Reborn>**.
@@ -86,7 +89,8 @@ Hosting a server is covered step by step at **<https://github.com/spardanviro/DI
 
 | Symptom | What to do |
 |---|---|
-| The server card says **Offline** | The server is down, or your network cannot reach it. Ask whoever runs it. With a `launcher.json`, check the address for typos. |
+| A server shows **Offline** or `– ms` | The server is down, or your network cannot reach it. Ask whoever runs it, or pick another. With a `launcher.json`, check the address for typos. |
+| "Could not load the server list" | The registry could not be reached; the launcher still shows the server you picked last, and you can play on it. Press *Check for updates* to try again. |
 | The download is slow or fails | The launcher tries GitHub first and falls back to the game server itself. If both fail, the status line under the button says why for each. Try again, or use a different network. |
 | "No permission to write to the game folder" | Right-click the launcher → *Run as administrator*. |
 | **Game is running**, but you closed the game | A game process is still open. End every "Dead Island Epidemic" process in Task Manager. |
